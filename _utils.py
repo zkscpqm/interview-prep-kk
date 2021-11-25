@@ -66,7 +66,7 @@ class TestRunner:
             return
         rv = f"\nREPORT:\n{self.delimiter}\n\n"
         for test_name, test_result in self.results.items():
-            rv += f'{test_name} % pass: {test_result:.2f}%'
+            rv += f'{test_name} % pass: {test_result:.2f}%\n'
 
         print(TermColour.info(rv))
 

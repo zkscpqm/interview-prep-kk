@@ -1,5 +1,5 @@
 from _utils import TestRunner, TestCase
-from question_set_1 import mul_div_main
+from question_set_1 import mul_div_main, bit_masks
 
 
 def main(test_runner: TestRunner):
@@ -22,6 +22,21 @@ def main(test_runner: TestRunner):
             TestCase(([9, 19, -99, 0, 32],), expected=[0., 0., 0., -541728.0, 0.])
         ]
     )
+
+    test_runner.register(
+        test_name='BitMasks',
+        test_func=bit_masks,
+        cases=[
+            TestCase((0x0,), expected={0x0, }),
+            TestCase((2**10,), expected=set(x for x in range(2**10))),
+            TestCase((312,), expected={0, 8, 16, 24, 32, 40, 48, 56, 256, 264, 272, 280, 288, 296, 304, 312}),
+            TestCase((1,), expected={0, 1}),
+            TestCase((12,), expected={0, 4, 8, 12}),
+            TestCase((542,), expected={0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 512, 514, 516, 518,
+                                       520, 522, 524, 526, 528, 530, 532, 534, 536, 538, 540, 542})
+        ]
+    )
+
     test_runner.run()
     test_runner.report()
 

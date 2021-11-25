@@ -1,5 +1,3 @@
-from typing import List
-
 """
 Task specification:
 
@@ -15,6 +13,8 @@ Example:
 >>> b = [24, 12, 8, 6]
 
 """
+
+from typing import List
 
 
 def mul_div_main(inp: List[float]) -> List[float]:
