@@ -8,7 +8,7 @@ Given a positive integer 'x', return a set 'S' = {0, 1, 2.... x} containing all 
 Maximum complexity allowed is O(n)
 
 Extra info:
- - x ∈ { 0, 1, 2..., 2**16 } ∈ ℕ
+ - x ∈ { 0, 1, 2..., 2**10 } ∈ ℕ
 
 Tip:
     In Python, you can define integers by their binary representations by prefixing with 0x
@@ -29,10 +29,27 @@ Hints:
     - Converting an int 'x' to its binary representation is done like: bin(x)
 
 """
+
+
 from typing import Set
 
 
 def bit_masks(inp: int) -> Set[int]:
     return_value: Set[int] = set()
+    max_bits = 10
+
+    for number in range(inp + 1):
+        should_add_this_number: bool = True
+
+        for bit in range(max_bits):
+            if not is_bit_set(inp, bit) and is_bit_set(number, bit):
+                should_add_this_number = False
+
+        if should_add_this_number:
+            return_value.add(number)
 
     return return_value
+
+
+def is_bit_set(num: int, bit: int) -> bool:
+    return (num & (1 << bit)) > 0

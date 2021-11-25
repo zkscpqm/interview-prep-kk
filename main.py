@@ -28,7 +28,7 @@ def main(test_runner: TestRunner):
         test_func=bit_masks,
         cases=[
             TestCase((0x0,), expected={0x0, }),
-            TestCase((2**10,), expected=set(x for x in range(2**10))),
+            TestCase((2**10-1,), expected=set(x for x in range(2**10))),
             TestCase((312,), expected={0, 8, 16, 24, 32, 40, 48, 56, 256, 264, 272, 280, 288, 296, 304, 312}),
             TestCase((1,), expected={0, 1}),
             TestCase((12,), expected={0, 4, 8, 12}),
