@@ -66,7 +66,7 @@ class TestRunner:
             return
         rv = f"\nREPORT:\n{self.delimiter}\n\n"
         for test_name, test_result in self.results.items():
-            rv += f'{test_name} % pass: {test_result}%'
+            rv += f'{test_name} % pass: {test_result:.2f}%'
 
         print(TermColour.info(rv))
 
@@ -108,4 +108,4 @@ class TestRunner:
                           f"Expected: {case.expected}\n"
                           f"Actual: {actual}")
                 case_num += 1
-            self.results[test.name] = (passed / case_num) * 100
+            self.results[test.name] = (passed / (case_num - 1)) * 100
