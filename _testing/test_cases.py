@@ -80,7 +80,6 @@ dict_tree_search_cases = [
                     }
                 },
                 'gears': [1, 2, 3, 4, 5, 6, 'R'],
-                'turbo': True,
                 'approved_resellers': ['bmw', 'bmw_group']
             }
         }, 'BMW'), expected=(4, 7, 13, 4)),
