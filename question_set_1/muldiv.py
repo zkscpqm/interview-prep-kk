@@ -17,7 +17,7 @@ Example:
 from typing import List
 
 
-def mul_div_main(inp: List[float]) -> List[float]:
+def mul_div(inp: List[float]) -> List[float]:
     ret: List[float] = []
     total_val: float = 1
     num_zeros: int = 0

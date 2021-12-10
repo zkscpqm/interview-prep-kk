@@ -1,3 +1,4 @@
+import json
 from typing import Dict, Any, Callable, List, Union
 
 
@@ -70,14 +71,28 @@ class TestRunner:
 
         print(TermColour.info(rv))
 
-    def _format_args(self, *args, **kwargs) -> str:
+    @staticmethod
+    def _format_args(*args, **kwargs) -> str:
         rv = ''
 
         if len(args) > 0:
-            rv += f"Args: {', '.join((str(x) for x in (args or self._curr_case.inp_args)))}\n"
+            parsed_args = []
+            for arg in args:
+                if type(arg) in {dict, list}:
+                    arg = json.dumps(arg, indent=4)
+                else:
+                    arg = str(arg)
+                parsed_args.append(arg)
+
+            rv += f"Args: {', '.join(parsed_args)}\n"
 
         if len(kwargs) > 0:
-            rv += f"Kwargs: {', '.join((f'{k}={v}' for k, v in (kwargs.items() or self._curr_case.inp_kwargs.items())))}"
+            parsed_kwargs = {}
+            for k, v in kwargs.items():
+                if type(v) in {dict, list}:
+                    v = json.dumps(v, indent=4)
+                parsed_kwargs[k] = v
+            rv += f"Kwargs: {', '.join((f'{k}={v}' for k, v in parsed_kwargs.items()))}"
 
         return rv
 
