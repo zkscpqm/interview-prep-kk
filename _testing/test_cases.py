@@ -1,5 +1,6 @@
 from _testing.utils import TestCase
 
+
 muldiv_test_cases = [
     TestCase(([1, 2, 3],), expected=[6., 3., 2.]),
     TestCase(([7, 6, 10, 9, 2],), expected=[1080.0, 1260.0, 756.0, 840.0, 3780.0]),
@@ -37,4 +38,135 @@ raincatcher_test_cases = [
     TestCase(([3, 3, 3, 3, 3, 3, 3],), expected=0),
     TestCase(([7, 6, 5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5, 6, 7],), expected=0),
     TestCase(([99999, 1, 1, 0, 2, 1, 99999],), expected=1),
+]
+
+find_pos_neg_test_cases = [
+    TestCase(([-4, -3, 2, 1, -1, -2, 3, 4],), expected=[2, 1, 3, 4]),
+    TestCase(([0, -1, 7, 5, 3, 1, 4, -8, -2],), expected=[1]),
+    TestCase(([7, 9, 0, 9, 8, 1, 9, 3, 0, -9],), expected=[9, 9, 9]),
+    TestCase(([1, 9, 2, 8, -3, -7, 5, 2, 1, 6, -10],), expected=[]),
+    TestCase(([],), expected=[]),
+    TestCase(([-9, -2, -4, -8, -3, 1, 3],), expected=[3])
+]
+
+
+dict_tree_search_cases = [
+    TestCase(({}, None), expected=(1, 0, 0, 0)),
+    TestCase((
+        {
+            'name': 'Georgi',
+            'age': 25,
+            'occupation': {
+                'title': 'Software Developer',
+                'company': 'Acronis'
+            }
+        }, 'Acronis'), expected=(2, 3, 1, 1)),
+    TestCase((
+        {
+            'car': {
+                'make': 'BMW',
+                'model': 'M8',
+                'year': 2019,
+                'engine': {
+                    'manufacturer': 'bmw',
+                    'horsepower': 625,
+                    'capacity_L': 4.4,
+                    'cylinders': 8,
+                    'fuel_consumption': {
+                        'type': 'petrol',
+                        'urban': 15.2,
+                        'x_urban': 7.8,
+                        'combined': 10.5
+                    }
+                },
+                'gears': [1, 2, 3, 4, 5, 6, 'R'],
+                'turbo': True,
+                'approved_resellers': ['bmw', 'bmw_group']
+            }
+        }, 'BMW'), expected=(4, 7, 13, 4)),
+    TestCase((
+        {
+            'movies': [
+                {
+                    'name': 'The Jungle Book',
+                    'director': 'Wolfgang Reitherman',
+                    'writers': ['Larry Clemmons', 'Ralph Wright', 'Ken Anderson'],
+                    'year': 1967,
+                    'genres': ['Animation', 'Adventure', 'Comedy'],
+                    'stars': [
+                        {
+                            'name': 'Phil Harris',
+                            'age': 63,
+                            'character': 'Baloo',
+                        },
+                        {
+                            'name': 'Sebastian Cabot',
+                            'age': 49,
+                            'character': 'Bagheera',
+                        },
+                        {
+                            'name': 'Louis Prima',
+                            'age': 57,
+                            'character': 'King Louie of the Apes',
+                        }
+                    ]
+                },
+                {
+                    'name': 'Your Name',
+                    'director': 'Makoto Shinkai',
+                    'writers': ['Makoto Shinkai'],
+                    'year': 2016,
+                    'genres': ['Animation', 'Drama', 'Fantasy'],
+                    'stars': [
+                        {
+                            'name': 'Ryûnosuke Kamiki',
+                            'age': 23,
+                            'character': 'Taki Tachibana',
+                        },
+                        {
+                            'name': 'Mone Kamishiraishi',
+                            'age': 18,
+                            'character': 'Mitsuha Miyamizu',
+                        }
+                    ]
+                },
+                {
+                    'name': 'The Green Mile',
+                    'director': 'Frank Darabont',
+                    'writers': ['Stephen King', 'Frank Darabont'],
+                    'year': 1999,
+                    'genres': ['Crime', 'Drama', 'Fantasy'],
+                    'stars': [
+                        {
+                            'name': 'Tom Hanks',
+                            'age': 43,
+                            'character': 'Paul Edgecomb',
+                        },
+                        {
+                            'name': 'Michael Clarke Duncan',
+                            'age': 42,
+                            'character': 'John Coffey',
+                        },
+                        {
+                            'name': 'David Morse',
+                            'age': 46,
+                            'character': 'Brutus Howell',
+                        }
+                    ]
+                }
+            ]
+         }, 'Animation'), expected=(5, 37, 11, 2)),
+    TestCase((
+        {
+            'cpu_metrics': {
+                'file_servers': [55.1, 82.1, 0.01, 100., 0.03, 91.1, 100.],
+                'app_servers': [21., 25., 11., 99.9, 45.2, 12.1, 0.1],
+                'dbs': [99.9, 100., 100.]
+            },
+            'memory_metrics': {
+                'file_servers': [87.2, 100., 0.04, 100., 1.1, 100., 100.],
+                'app_servers': [65., 53., 61.1, 87.7, 49.4, 32.9, 0.02],
+                'dbs': [83.91, 97.2, 100.]
+            }
+        }, 100.), expected=(3, 0, 34, 9))
 ]
