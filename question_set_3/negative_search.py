@@ -15,12 +15,18 @@ Example:
 
 """
 
-from typing import List
+from typing import List, Set
 
 
-def find_pos_neg_couples(inp: List[float]) -> List[float]:
-    ret: List[float] = []
+def find_pos_neg_couples(inp: List[int]) -> List[int]:
+    ret: List[int] = []
+    negs: Set = set()
+    for i in inp:
+        if i<0:
+            negs.add(i)
 
-    # Your solution here
+    for i in inp:
+        if i*-1 in negs:
+            ret.append(i)
 
     return ret

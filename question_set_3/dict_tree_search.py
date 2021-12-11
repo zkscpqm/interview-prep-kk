@@ -19,15 +19,56 @@ Note:
     Eg: Given key_value = 'Acronis' and a string = 'This is acronis', the key value count should add +1
 
 """
-from typing import Any, Dict
+from typing import Any, Dict, List, Union
 
 
-def dict_search(inp: Dict, key_value: Any) -> tuple:
-    levels = 1
+def dict_search(inp: Union[Dict, List], key_value: Any, current_level: int = 1) -> tuple:
+    levels = current_level
     str_count = 0
     num_count = 0
     key_val_count = 0
 
-    # Your solution here
+    if isinstance(key_value, str):
+        key_value = key_value.casefold()
+
+    if isinstance(inp, dict):
+        for v in inp.values():
+            if isinstance(v, str):
+                str_count += 1
+                if key_value in v.casefold():
+                    key_val_count += 1
+
+            elif isinstance(v, (int, float)):
+                num_count += 1
+                if v == key_value:
+                    key_val_count += 1
+
+            elif isinstance(v, (list, dict)):
+                l, s, n, k = dict_search(v, key_value, current_level + 1)
+                if l > levels:
+                    levels = l
+                str_count += s
+                num_count += n
+                key_val_count += k
+
+    elif isinstance(inp, list):
+        for v in inp:
+            if isinstance(v, str):
+                str_count += 1
+                if key_value in v.casefold():
+                    key_val_count += 1
+
+            elif isinstance(v, (int, float)):
+                num_count += 1
+                if v == key_value:
+                    key_val_count += 1
+
+            elif isinstance(v, (list, dict)):
+                l, s, n, k = dict_search(v, key_value, current_level + 1)
+                if l > levels:
+                    levels = l
+                str_count += s
+                num_count += n
+                key_val_count += k
 
     return levels, str_count, num_count, key_val_count
