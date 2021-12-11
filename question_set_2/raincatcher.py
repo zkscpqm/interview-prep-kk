@@ -35,4 +35,19 @@ from typing import List
 def rain_catcher(inp: List[int]) -> int:
     res = 0
 
+    if len(inp) == 3 and min(inp) != inp[1]:
+        return res
+
+    for idx, current_height in enumerate(inp):
+        if inp[idx] != inp[0]:
+
+            left_edge = inp[idx - 1]
+
+            if idx < len(inp) - 1:
+                right_edge = inp[idx + 1]
+
+                if 0 not in [current_height, left_edge, right_edge]:
+                    if (left_edge > current_height < right_edge):
+                        res += abs(min(left_edge, right_edge) - current_height)
+
     return res
