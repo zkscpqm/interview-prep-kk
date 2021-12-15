@@ -31,44 +31,28 @@ def dict_search(inp: Union[Dict, List], key_value: Any, current_level: int = 1) 
     if isinstance(key_value, str):
         key_value = key_value.casefold()
 
-    if isinstance(inp, dict):
-        for v in inp.values():
-            if isinstance(v, str):
-                str_count += 1
-                if key_value in v.casefold():
-                    key_val_count += 1
+    interpreted_inp: List = _check_instances(inp)
+    for v in interpreted_inp:
+        if isinstance(v, str):
+            str_count += 1
+            if key_value in v.casefold():
+                key_val_count += 1
 
-            elif isinstance(v, (int, float)):
-                num_count += 1
-                if v == key_value:
-                    key_val_count += 1
+        elif isinstance(v, (int, float)):
+            num_count += 1
+            if v == key_value:
+                key_val_count += 1
 
-            elif isinstance(v, (list, dict)):
-                l, s, n, k = dict_search(v, key_value, current_level + 1)
-                if l > levels:
-                    levels = l
-                str_count += s
-                num_count += n
-                key_val_count += k
-
-    elif isinstance(inp, list):
-        for v in inp:
-            if isinstance(v, str):
-                str_count += 1
-                if key_value in v.casefold():
-                    key_val_count += 1
-
-            elif isinstance(v, (int, float)):
-                num_count += 1
-                if v == key_value:
-                    key_val_count += 1
-
-            elif isinstance(v, (list, dict)):
-                l, s, n, k = dict_search(v, key_value, current_level + 1)
-                if l > levels:
-                    levels = l
-                str_count += s
-                num_count += n
-                key_val_count += k
+        elif isinstance(v, (list, dict)):
+            l, s, n, k = dict_search(v, key_value, current_level + 1)
+            if l > levels:
+                levels = l
+            str_count += s
+            num_count += n
+            key_val_count += k
 
     return levels, str_count, num_count, key_val_count
+
+
+def _check_instances(inp: Any) -> List:
+    return inp.values() if isinstance(inp, dict) else inp
