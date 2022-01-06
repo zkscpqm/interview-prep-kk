@@ -40,6 +40,7 @@ raincatcher_test_cases = [
     TestCase(([99999, 1, 1, 0, 2, 1, 99999],), expected=1),
 ]
 
+
 find_pos_neg_test_cases = [
     TestCase(([-4, -3, 2, 1, -1, -2, 3, 4],), expected=[2, 1, 3, 4]),
     TestCase(([0, -1, 7, 5, 3, 1, 4, -8, -2],), expected=[1]),
@@ -168,4 +169,18 @@ dict_tree_search_cases = [
                 'dbs': [83.91, 97.2, 100.]
             }
         }, 100.), expected=(3, 0, 34, 9))
+]
+
+
+validate_endpoints_test_cases = [
+    TestCase(('*.store.com', ['store.com/new-items', 'https://api.store.com/items/1', 'api.store/items/1']),
+             expected=[True, True, False]),
+    TestCase(('*.acronis.co.uk', ['http://aacronis.co.uk/new-items', 'api.acronis.co.uk/items/1',
+                                  'api.acronis/items/1/', 'aacronis.co.uk/acronis.co.uk/']),
+             expected=[False, True, False, False]),
+    TestCase(('store.com', ['store.com/new-items', 'https://api.store.com/items/1', 'https://store.com.au/items/1']),
+             expected=[True, False, False]),
+    TestCase(('api.store.com/v1', ['store.com/new-items', 'https://api.store.com/items/1',
+                                   'https://api.store.com/v1/items/1']),
+             expected=[False, False, True])
 ]

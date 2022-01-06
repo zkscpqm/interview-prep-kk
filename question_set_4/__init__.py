@@ -1,0 +1,1 @@
+from .endpoint_validator import validate_endpoints

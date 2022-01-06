@@ -1,11 +1,12 @@
 from _testing.test_cases import (
     bitmask_test_cases, muldiv_test_cases, raincatcher_test_cases, find_pos_neg_test_cases,
-    dict_tree_search_cases
+    dict_tree_search_cases, validate_endpoints_test_cases
 )
 from _testing.utils import TestRunner
 from question_set_1 import mul_div, bit_masks
 from question_set_2 import rain_catcher
 from question_set_3 import find_pos_neg_couples, dict_search
+from question_set_4 import validate_endpoints
 
 
 def main(test_runner: TestRunner):
@@ -37,6 +38,12 @@ def main(test_runner: TestRunner):
         test_name='DictionaryTreeSearch',
         test_func=dict_search,
         cases=dict_tree_search_cases
+    )
+
+    test_runner.register(
+        test_name='EndpointValidator',
+        test_func=validate_endpoints,
+        cases=validate_endpoints_test_cases
     )
 
     test_runner.run()
